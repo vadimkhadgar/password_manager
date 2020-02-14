@@ -1,12 +1,17 @@
 package com.vadimkor.passwordmanager.access.fragments.add_pin
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.vadimkor.passwordmanager.MainActivity
 import com.vadimkor.passwordmanager.R
+import com.vadimkor.passwordmanager.access.*
+import com.vadimkor.passwordmanager.extension.toast
+import kotlinx.android.synthetic.main.add_pin_code_fragment.*
 
 class AddPinCode : Fragment() {
 
@@ -14,8 +19,6 @@ class AddPinCode : Fragment() {
         fun newInstance() =
             AddPinCode()
     }
-
-    private lateinit var viewModel: AddPinCodeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +29,35 @@ class AddPinCode : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddPinCodeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
+        val sharedPreferences = this.activity!!.getSharedPreferences(
+            myPreferences,
+            Context.MODE_PRIVATE
+        )
+
+        button_save_pw.setOnClickListener {
+            //If the user has left any fields empty, show Toast message
+            if (et_create_password.text.toString() == EMPTY
+                || et_create_password_2.text.toString() == EMPTY
+            ) {
+                toast(context!!, ERROR_INPUT_EMPTY)
+
+            } else if (et_create_password.text.toString() != et_create_password_2.text.toString()) {
+                toast(context!!, "Passwords do not match!!! ")
+            } else if (et_create_password.text.toString().length < 4) {
+                toast(context!!, "Passwords is too short ")
+            } else {
+                //If all fields are filled then fetch the data and
+                // save the data in Shared Preferences
+                val editor = sharedPreferences.edit()
+                editor.putString(PIN_CODE, et_create_password.text.toString())
+                editor.apply()
+
+                toast(context!!, SAVED)
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+                activity!!.finish()
+            }
+        }
+    }
 }
