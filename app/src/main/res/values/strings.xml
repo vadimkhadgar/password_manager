@@ -23,4 +23,6 @@
     <string name="toolbar_title_list">Items</string>
     <string name="change_access_code">Change access code</string>
     <string name="next">next</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_you_pin_code">Create you PIN code!!!</string>
 </resources>
