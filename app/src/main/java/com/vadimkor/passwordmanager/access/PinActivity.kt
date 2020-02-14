@@ -1,4 +1,4 @@
-package com.vadimkor.passwordmanager.access.fragments.add_pin
+package com.vadimkor.passwordmanager.access
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,5 +9,7 @@ class PinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin)
+
+
     }
 }

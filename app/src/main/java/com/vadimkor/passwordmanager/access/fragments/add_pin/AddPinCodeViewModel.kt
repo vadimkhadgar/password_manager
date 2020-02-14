@@ -1,4 +1,4 @@
-package com.vadimkor.passwordmanager.access.fragments
+package com.vadimkor.passwordmanager.access.fragments.add_pin
 
 import androidx.lifecycle.ViewModel
 
